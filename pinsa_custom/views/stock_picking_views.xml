@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form_inh12" model="ir.ui.view">
+        <field name="name">view.picking.form.inh12</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='move_ids_without_package']//tree//field[@name='product_uom_qty']" position="after">
+                <field name='virtual_box' invisible="1"/>
+                <field name='qty_box' attrs="{'readonly': [('virtual_box', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inherit_move_form" model="ir.ui.view">
+        <field name="name">view.move.form</field>
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='location_id']" position="attributes">
+                <attribute name="domain">['|', ('company_id', '=', False), ('company_id', '=', company_id), ('usage', '=', 'internal')]</attribute>
+          </xpath>
+        </field>
+    </record>
+</odoo>
