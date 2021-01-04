@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="master_data_connection_tree_view" model="ir.ui.view">
+        <field name="name">Master Data Connection Tree</field>
+        <field name="model">master.data.connection</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Master Data Connection">
+                <field name="name"/>
+                <field name="url"/>
+                <field name="username"/>
+            </tree>
+        </field>
+    </record>
+    <record id="master_data_connection_form_view" model="ir.ui.view">
+        <field name="name">Master Data Connection Form</field>
+        <field name="model">master.data.connection</field>
+        <field name="arch" type="xml">
+            <form string="Master Data Connection">
+                <header>
+                    <button class="btn btn-primary" name="test_connection" string="Test Connection" type="object" icon="fa-plug"
+                        help="Test the Connection"/>
+                </header>
+                <sheet>
+                    <h3>
+                        <field name="connection_test" invisible="1"/>
+                        <p class="badge badge-pill badge-success" attrs="{'invisible': [('connection_test', '=', False)]}">
+                            <span class="fa fa-check"/> Success<br/>
+                            Everything is correctly configured.
+                        </p>
+                        <p class="badge badge-pill badge-danger" attrs="{'invisible': [('connection_test', '=', True)]}">
+                            <span class="fa fa-times"/> Failed<br/>
+                            Your configuration is invalid. Change the configuration and try again.
+                        </p>
+                    </h3>
+                    <group name="server_settings" string="Server Settings">
+                        <group>
+                            <field name="name" placeholder="For example: Test12 Odoo Server"/>
+                            <field name="url" placeholder="For example: http://test.odoo.com:8012"/>
+                        </group>
+                        <group>
+                            <field name="username"/>
+                            <field name="password" password="True"/>
+                            <field name="database"/>
+                        </group>
+                    </group>
+                    <separator string="Help" colspan="2"/>
+                    <div name="Server_Configuration">
+                        How to Test the Connection:
+                        <ol>
+                            <li>
+                                Add the Source Server Name(Test12 Odoo Server)
+                            </li>
+                            <li>
+                                Add the Source Server URL(http://test.odoo.com:8012)
+                            </li>
+                            <li>
+                                Add the Source Server Username/Password.
+                            </li>
+                            <li>
+                                Add the Source Server Database to Import.
+                            </li>
+                        </ol>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="master_data_connection_action" model="ir.actions.act_window">
+        <field name="name">Master Data Connection</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">master.data.connection</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="main_master_data_connection_config" name="Master Data Connection" parent="base.menu_administration"/>
+    <menuitem id="master_data_connection_config" name="Master Data Connection" parent="master_data_import.main_master_data_connection_config"
+        sequence="1" action="master_data_connection_action"/>
+</odoo>

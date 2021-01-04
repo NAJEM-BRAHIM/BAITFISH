@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+admin_master_data_connection, admin_master_data_connection,model_master_data_connection,,1,1,1,1
+admin_master_data, admin_master_data,model_master_data,,1,1,1,1
+admin_source_destination_object, admin_source_destination_object,model_source_destination_object,,1,1,1,1
+admin_partner_data_import, admin_partner_data_import,model_partner_data_import,,1,1,1,1
+admin_product_data_import, admin_product_data_import,model_product_data_import,,1,1,1,1
+admin_so_data_import, admin_so_data_import,model_so_data_import,,1,1,1,1
+admin_po_data_import, admin_po_data_import,model_po_data_import,,1,1,1,1
+admin_sp_data_import, admin_sp_data_import,model_sp_data_import,,1,1,1,1
+admin_am_data_import, admin_am_data_import,model_am_data_import,,1,1,1,1
