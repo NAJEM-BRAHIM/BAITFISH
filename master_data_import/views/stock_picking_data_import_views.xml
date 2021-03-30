@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sp_data_import_tree_view" model="ir.ui.view">
+        <field name="name">Stock Picking Data Import Tree</field>
+        <field name="model">sp.data.import</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Stock Picking Data Import">
+                <field name='sequence' widget='handle'/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="sp_data_import_form_view" model="ir.ui.view">
+        <field name="name">Stock Picking Data Import Form</field>
+        <field name="model">sp.data.import</field>
+        <field name="arch" type="xml">
+            <form string="Stock Picking Data Import">
+                <sheet>
+                    <h3>
+                        <field name="connection_test" invisible="1"/>
+                        <p class="badge badge-pill badge-success" attrs="{'invisible': [('connection_test', '=', False)]}">
+                            <span class="fa fa-check"/> Success<br/>
+                            Everything is correctly configured.
+                        </p>
+                        <p class="badge badge-pill badge-danger" attrs="{'invisible': [('connection_test', '=', True)]}">
+                            <span class="fa fa-times"/> Failed<br/>
+                            Your configuration is invalid. Change the configuration and try again.
+                        </p>
+                    </h3>
+                    <group>
+                        <group>
+                            <field name="name" placeholder="Name of the Model For Example (Sales Team Import)"/>
+                            <field name="master_data_connection" options="{'no_create': True}"/>
+                            <field name="model_id" options="{'no_create': True}"/>
+                            <field name="is_import_data" invisible="1"/>
+                        </group>
+                        <group>
+                            <div name="Server_Configuration" style="width: 100%;border-radius: 32px;margin: -74px 0px;padding: 18px 4px 2px 12px;color: #FFFFFF;background-color: #00A09D;">
+                                Help<br/>
+                                <b>This Process need to execute twice time,Instruction for Following Stock Picking Data Import:</b>
+                                <ol>
+                                    <li>
+                                        First, you have to assign the Name/Connection/Model and Fetch the field(It will
+                                        fetch the all Required field) then click on the import processing and data will be synchronize.
+                                    </li>
+                                    <li>
+                                        The Second time you have added the other fields which you want to sync like ['order_line', 'payment_term_id', etc.] then do the import processing it will sync/update with all fields which is set on the line.
+                                    </li>
+                                </ol>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Data Import">
+                            <button class="btn btn-primary" name="fetch_fileds" string=" Fetch Fields" type="object" icon="fa-refresh" help="It will Fetch all
+                                the Required Fields which have in Destination Model and also having on the Source Model"/>
+                            <group>
+                                <field name="source_dest_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="source_field_name" string="Source Database Fields"/>
+                                        <field name="dest_field_name" string="Destination Database Fields" options="{'no_create': True}"/>
+                                        <field name="is_resync_data" string="Update Field" attrs="{'column_invisible': [('parent.is_import_data', '=', False)]}"
+                                            help="If you want to update this field make them Update True or it not want to update again them make them False"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group style="margin-left: 30em;">
+                                <button class="btn btn-primary" name="import_processing" string=" Import Processing" type="object" icon="fa-share-square-o" help="Process the Request with Import the Data which is Set on Src/Dest(It will Import based on the Destination Fields.)"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="sp_data_import_action" model="ir.actions.act_window">
+        <field name="name">Stock Picking Data Import</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sp.data.import</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="sp_data_import_config" name="Stock Picking Data Import" parent="master_data_import.data_import_root"
+        sequence="4" action="sp_data_import_action"/>
+</odoo>

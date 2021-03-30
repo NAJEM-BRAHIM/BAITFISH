@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+        <record id="view_multi_image_import_wizard_form" model="ir.ui.view">
+            <field name='name'>product.multi.image.import.form</field>
+            <field name='model'>product.multi.image.import</field>
+            <field name='arch' type='xml'>
+                <form string='Product Multi Image Upload'>
+                    <sheet>
+                        <group>
+                            <field name="filename" readonly="1" />
+                            <field name="image_file" filename="filename"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name='confirm_import' string='Confirm' class='oe_highlight' type='object'/>
+                        <button special="cancel" string="Close" type="object" class="oe_link oe_inline"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_import_image_multi">
+            <field name="name">Product Multi Image Import</field>
+            <field name="res_model">product.multi.image.import</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_multi_image_import_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="product_menu_Import" name="Import Products" parent="master_data_import.data_import_root" sequence="20"/>
+        <menuitem name="Import Multi Images"
+        id="menu_import_products_image_multi"
+        action="action_import_image_multi"
+        parent="master_data_import.product_menu_Import"
+        sequence="1"/>
+
+        <record id="product_multi_image_output_message_view" model="ir.ui.view">
+            <field name="name">Output Message</field>
+            <field name="model">multi.output.message</field>
+            <field name="arch" type="xml">
+                <form string="Notification Message">
+                    <group>
+                        <field name="is_bounced" invisible="1"/>
+                        <h1>
+                            <!-- <label string="Bounce file generated..." attrs="{'invisible': [('is_bounced', '=', False)]}"/>
+                            <label string="Successfully completed import process." attrs="{'invisible': [('is_bounced', '=', True)]}"/> -->
+                            <field name="file" nolabel="1" attrs="{'invisible': [('is_bounced', '=', False)]}"/>
+                        </h1>
+                    </group>
+                    <footer>
+                        <button special="cancel" string="_Close" class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+	</data>
+</odoo>
