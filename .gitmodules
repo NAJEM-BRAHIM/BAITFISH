@@ -32,3 +32,8 @@
 	path = OCA/server-ux
 	url = git@github.com:OCA/server-ux.git
 	branch = 13.0
+
+[submodule "acysos/odoo-sii-bt"]
+	path = acysos/odoo-sii-bt
+	url = git@github.com:acysos/odoo-sii-bt.git
+	branch = 13.0
